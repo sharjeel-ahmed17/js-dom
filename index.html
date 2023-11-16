@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Multi Step Form</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: url("https://img.freepik.com/free-photo/beautiful-view-greenery-bridge-forest-perfect-background_181624-17827.jpg?size=626&ext=jpg&ga=GA1.1.1880011253.1699833600&semt=ais");
+            height: 100vh;
+            background-position: center;
+            background-size: cover;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .main {
+            width: 300px;
+            background: rgba(0, 0, 0, 0.5);
+            border-radius: 20px;
+            position: relative;
+            box-shadow: 0px 0px 5px 1px white;
+            height: 400px;
+            overflow: hidden;
+        }
+
+        .main form {
+            width: 100%;
+            padding: 60px 30px;
+            position: absolute;
+
+            right: 0;
+            transition: 0.5s;
+
+        }
+
+        .main form h1,
+        .main form h2 {
+            color: white;
+            text-transform: capitalize;
+            font-size: 24px;
+        }
+
+        .main form input {
+            border: none;
+            outline: none;
+            border-bottom: 1px solid white;
+            width: 100%;
+            padding: 10px 5px;
+            background: transparent;
+            margin: 10px 0px;
+            color: white;
+            font-size: 16px;
+
+        }
+
+        .btn {
+            display: flex;
+            justify-content: space-evenly;
+        }
+
+        .btn button {
+            padding: 10px 30px;
+            border-radius: 20px;
+            text-transform: capitalize;
+            border: none;
+            background: linear-gradient(45deg, red, yellow);
+            color: white;
+            font-weight: bold;
+
+            font-size: 18px;
+            cursor: pointer;
+        }
+
+        .form1 {
+            left: 0;
+        }
+
+        .form2,
+        .form3 {
+            left: 100%;
+        }
+
+        .progress {
+            position: absolute;
+            width: 100%;
+
+            /* background: white; */
+            border-bottom: 1px solid white;
+            display: flex;
+
+        }
+
+        .progress div {
+            padding: 10px 0px;
+            text-align: center;
+            width: 35%;
+            color: white;
+            font-size: 18px;
+            font-weight: bold;
+            text-transform: capitalize;
+            z-index: 2;
+        }
+
+        .progressBar {
+            position: absolute;
+            width: 33%;
+            background: linear-gradient(to right, red, yellow);
+            height: 100%;
+            z-index: 1;
+            transition: 0.4s;
+        }
+
+        .progressBar::after {
+            content: '';
+            width: 0;
+            height: 0;
+            top: 0;
+            right: -20px;
+            position: absolute;
+            border-top: 20px solid transparent;
+            border-bottom: 20px solid transparent;
+            border-left: 20px solid yellow;
+        }
+
+        ::placeholder {
+            color: white;
+            text-transform: capitalize;
+            letter-spacing: 2px;
+            word-spacing: 3px;
+            font-size: 10px;
+            font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+            font-weight: 800;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="main">
+        <form class="form1">
+            <h1>create account</h1>
+            <input type="email" name="" id="" placeholder="enter email">
+            <div style="display: flex; justify-content: space-between; position: relative;">
+                <input type="password" name="" id="password" placeholder="enter password">
+                <div style="position: absolute; right: 5px; bottom: 10px; display: flex; justify-content: center;">
+
+                    <input type="checkbox" name="" id="check" onclick="showHide()">
+
+                </div>
+            </div>
+            <input type="password" name="" id="" placeholder="confirm password">
+            <div class="btn">
+                <button type="button" onclick="nextToForm2()">
+                    next
+                </button>
+            </div>
+        </form>
+        <form class="form2">
+            <h2>personal details</h2>
+            <input type="text" name="" id="" placeholder="first name">
+            <input type="text" name="" id="" placeholder="last name">
+            <input type="tel" name="" id="" placeholder="mobile number">
+
+            <div class="btn">
+                <button type="button" onclick="prevToForm1()">
+                    prev
+                </button>
+                <button type="button" onclick="nextToForm3()">
+                    next
+                </button>
+            </div>
+        </form>
+        <form class="form3">
+            <h2>social links</h2>
+            <input type="text" name="" id="" placeholder="link din">
+            <input type="text" name="" id="" placeholder="github">
+            <input type="text" name="" id="" placeholder="instagram">
+            <div class="btn">
+                <button type="button" onclick="prevToForm2()">
+                    prev
+                </button>
+                <button type="submit">
+                    submit
+                </button>
+            </div>
+        </form>
+
+        <div class="progress">
+            <div class="progressBar"></div>
+            <div>step 1</div>
+            <div>step 2</div>
+            <div>step 3</div>
+        </div>
+    </div>
+
+    <script>
+
+        // multi step start
+
+        const forms = document.querySelectorAll('form');
+        let progressBar = document.querySelector('.progressBar');
+
+
+        const nextToForm2 = () => {
+            forms[0].style.left = "-100%";
+            forms[1].style.left = "0";
+            progressBar.style.width = '66%'
+        }
+
+        const prevToForm1 = () => {
+
+            forms[0].style.left = "0";
+            forms[1].style.left = "100%";
+            progressBar.style.width = '33%'
+        }
+
+
+        const nextToForm3 = () => {
+            forms[0].style.left = "-200%";
+            forms[1].style.left = "-100%";
+            forms[2].style.left = "0";
+            progressBar.style.width = '100%'
+
+
+        }
+
+        const prevToForm2 = () => {
+            forms[0].style.left = "-100%";
+            forms[1].style.left = "0";
+            forms[2].style.left = "100%";
+            progressBar.style.width = '66%'
+        }
+        // multi step end 
+        // show and hide start
+
+        function showHide() {
+            let pass = document.getElementById("password");
+
+            let check = document.getElementById("check");
+
+
+            if (check.checked) {
+                pass.type = "text";
+
+            } else {
+                pass.type = "password"
+            }
+        }
+        // show and hide end
+    </script>
+</body>
+
+</html>
